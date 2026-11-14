@@ -113,7 +113,7 @@ pytest -q
   "answer_kind": "weight_grams",
   "text": "Сколько Ваня весил при рождении?",
   "caption": "Введите вес в граммах",
-  "placeholder": "3150",
+  "placeholder": "3260",
   "image": "",
   "correct_value": 3150
 }

@@ -15,7 +15,7 @@
       "answer_kind": "time",
       "text": "Во сколько родился Ваня?",
       "caption": "Введите часы и минуты в едином формате",
-      "placeholder": "22:10",
+      "placeholder": "19:45",
       "image": "",
       "correct_value": 1330
     },
@@ -25,7 +25,7 @@
       "answer_kind": "months",
       "text": "Во сколько месяцев у Вани появился первый зубик?",
       "caption": "Введите возраст целым числом",
-      "placeholder": "8",
+      "placeholder": "7",
       "image": "",
       "correct_value": 8
     },
@@ -35,7 +35,7 @@
       "answer_kind": "weight_grams",
       "text": "Сколько Ваня весил при рождении?",
       "caption": "Введите вес в граммах",
-      "placeholder": "3150",
+      "placeholder": "3260",
       "image": "",
       "correct_value": 3150
     },
@@ -45,7 +45,7 @@
       "answer_kind": "height_cm",
       "text": "Какого роста был Ваня при рождении?",
       "caption": "Введите рост в сантиметрах",
-      "placeholder": "51",
+      "placeholder": "53",
       "image": "",
       "correct_value": 51
     },

@@ -10,10 +10,10 @@
   const message = root.querySelector('[data-quiz-message]');
   const csrf = document.querySelector('meta[name="csrf-token"]').content;
   const numericFormats = {
-    time: {placeholder: '22:10', suffix: '', maxDigits: 4, help: 'Формат: ЧЧ:ММ'},
-    months: {placeholder: '8', suffix: 'месяцев', maxDigits: 2, help: 'Только целое число'},
-    weight_grams: {placeholder: '3150', suffix: 'г', maxDigits: 5, help: 'Вес указываем в граммах'},
-    height_cm: {placeholder: '51', suffix: 'см', maxDigits: 3, help: 'Рост указываем в сантиметрах'}
+    time: {examples: ['07:35', '14:20', '19:45', '23:05'], suffix: '', maxDigits: 4, help: 'Формат: ЧЧ:ММ'},
+    months: {examples: ['5', '6', '7', '9', '10'], suffix: 'месяцев', maxDigits: 2, help: 'Только целое число'},
+    weight_grams: {examples: ['2890', '3260', '3470', '3720'], suffix: 'г', maxDigits: 5, help: 'Вес указываем в граммах'},
+    height_cm: {examples: ['48', '50', '53', '55'], suffix: 'см', maxDigits: 3, help: 'Рост указываем в сантиметрах'}
   };
   let state = null;
   let serverOffset = 0;
@@ -41,6 +41,10 @@
     return digits;
   }
 
+  function randomExample(format) {
+    return format.examples[Math.floor(Math.random() * format.examples.length)];
+  }
+
   function renderWaiting(data) {
     const manual = !data.timer.enabled;
     card.innerHTML = `<div class="waiting-state"><span class="waiting-spark">✦</span>
@@ -57,11 +61,12 @@
     const image = question.image ? `<figure class="question-image"><img src="${escapeHtml(question.image)}" alt=""><figcaption>${escapeHtml(question.caption || '')}</figcaption></figure>` : '';
     const isNumeric = question.type === 'numeric';
     const numericFormat = numericFormats[question.answer_kind] || numericFormats.months;
+    const numericPlaceholder = randomExample(numericFormat);
     const answerControl = isNumeric
       ? `<div class="numeric-answer-box"><label for="numeric-answer">Ваша догадка</label>
           <div class="masked-input-row"><input id="numeric-answer" data-numeric-answer type="text"
                  inputmode="numeric" autocomplete="off" pattern="[0-9:]*"
-                 placeholder="${escapeHtml(numericFormat.placeholder)}"
+                 placeholder="${escapeHtml(numericPlaceholder)}"
                  aria-describedby="numeric-answer-help">
             ${numericFormat.suffix ? `<span aria-hidden="true">${escapeHtml(numericFormat.suffix)}</span>` : ''}</div>
           <small id="numeric-answer-help">${escapeHtml(numericFormat.help)}</small></div>`
