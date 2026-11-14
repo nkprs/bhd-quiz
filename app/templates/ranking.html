@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Рейтинг — {{ config.title }}{% endblock %}
+{% block body_class %}ranking-page{% endblock %}
+{% block content %}
+<section class="ranking-hero paper-lines">
+  <span class="eyebrow">Общий результат</span>
+  <h1>Семейный рейтинг</h1>
+  <p>Одинаковый счёт — одинаковое место. Таблица обновляется сама.</p>
+</section>
+<section class="ranking-wrap" data-ranking-root>
+  {% include "_ranking_table.html" %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/ranking.js') }}" defer></script>{% endblock %}
+

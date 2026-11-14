@@ -1,0 +1,137 @@
+{
+  "child_name": "Ваня",
+  "title": "Ванин первый большой квиз",
+  "subtitle": "Первый год — большая история",
+  "welcome": "Собираемся всей семьёй, вспоминаем тёплые моменты и проверяем, кто знает Ваню лучше всех.",
+  "event_date": "",
+  "final_title": "Вот это история!",
+  "final_text": "Спасибо, что были рядом в Ванин первый год.",
+  "demo_content": false,
+  "question_seconds": 60,
+  "questions": [
+    {
+      "id": "birth-time",
+      "type": "numeric",
+      "answer_kind": "time",
+      "text": "Во сколько родился Ваня?",
+      "caption": "Введите часы и минуты в едином формате",
+      "placeholder": "22:10",
+      "image": "",
+      "correct_value": 1330
+    },
+    {
+      "id": "first-tooth",
+      "type": "numeric",
+      "answer_kind": "months",
+      "text": "Во сколько месяцев у Вани появился первый зубик?",
+      "caption": "Введите возраст целым числом",
+      "placeholder": "8",
+      "image": "",
+      "correct_value": 8
+    },
+    {
+      "id": "birth-weight",
+      "type": "numeric",
+      "answer_kind": "weight_grams",
+      "text": "Сколько Ваня весил при рождении?",
+      "caption": "Введите вес в граммах",
+      "placeholder": "3150",
+      "image": "",
+      "correct_value": 3150
+    },
+    {
+      "id": "birth-height",
+      "type": "numeric",
+      "answer_kind": "height_cm",
+      "text": "Какого роста был Ваня при рождении?",
+      "caption": "Введите рост в сантиметрах",
+      "placeholder": "51",
+      "image": "",
+      "correct_value": 51
+    },
+    {
+      "id": "favorite-toy",
+      "type": "choice",
+      "text": "Какая у Вани любимая игрушка?",
+      "caption": "",
+      "image": "",
+      "options": [
+        {"id": "piano", "text": "Пианино"},
+        {"id": "mercedes", "text": "Мерседес"},
+        {"id": "bunny", "text": "Зайка"},
+        {"id": "crocodile", "text": "Крокодил"}
+      ],
+      "correct_option_id": "piano"
+    },
+    {
+      "id": "favorite-food",
+      "type": "choice",
+      "text": "Какая у Вани любимая еда?",
+      "caption": "",
+      "image": "",
+      "options": [
+        {"id": "cottage-cheese", "text": "Творог"},
+        {"id": "banana", "text": "Банан"},
+        {"id": "cheese-banana", "text": "Творог и банан"},
+        {"id": "strawberry", "text": "Клубника"}
+      ],
+      "correct_option_id": "cottage-cheese"
+    },
+    {
+      "id": "favorite-song",
+      "type": "choice",
+      "text": "Какая у Вани любимая песня?",
+      "caption": "",
+      "image": "",
+      "options": [
+        {"id": "clock", "text": "Часики"},
+        {"id": "blue-tractor", "text": "Синий трактор"},
+        {"id": "move-it", "text": "I Like to Move It"},
+        {"id": "lion", "text": "The Lion Sleeps Tonight"}
+      ],
+      "correct_option_id": "clock"
+    },
+    {
+      "id": "favorite-game",
+      "type": "choice",
+      "text": "Какая у Вани любимая игра?",
+      "caption": "",
+      "image": "",
+      "options": [
+        {"id": "hide-and-seek", "text": "Прятки"},
+        {"id": "tag", "text": "Догонялки"},
+        {"id": "pat-a-cake", "text": "Ладушки"},
+        {"id": "rhymes", "text": "Потешки"}
+      ],
+      "correct_option_id": "hide-and-seek"
+    },
+    {
+      "id": "favorite-hat",
+      "type": "choice",
+      "text": "Какая у Вани любимая шапка?",
+      "caption": "Вопрос с маленьким подвохом",
+      "image": "",
+      "options": [
+        {"id": "none", "text": "Никакая"},
+        {"id": "dads-cap", "text": "Папкина кепка"},
+        {"id": "summer-panama", "text": "Летняя панама"},
+        {"id": "winter-hat", "text": "Зимняя шапка"}
+      ],
+      "correct_option_id": "none"
+    },
+    {
+      "id": "favorite-transport",
+      "type": "choice",
+      "text": "Какой у Вани любимый транспорт?",
+      "caption": "",
+      "image": "",
+      "options": [
+        {"id": "elevator", "text": "Лифт"},
+        {"id": "car", "text": "Машина"},
+        {"id": "plane", "text": "Самолёт"},
+        {"id": "stroller", "text": "Коляска"}
+      ],
+      "correct_option_id": "elevator"
+    }
+  ]
+}

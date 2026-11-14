@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Играем — {{ config.title }}{% endblock %}
+{% block body_class %}quiz-page{% endblock %}
+{% block header_action %}<span class="player-chip">{{ participant.display_name }}</span>{% endblock %}
+{% block content %}
+<section class="quiz-shell" data-quiz-root>
+  <noscript><div class="notice error-notice">Для игры нужен JavaScript. Включите его и обновите страницу.</div></noscript>
+  <div class="quiz-topline">
+    <div>
+      <span class="eyebrow" data-progress-label>Готовим вопрос…</span>
+      <div class="progress-track" aria-hidden="true"><span data-progress-bar></span></div>
+    </div>
+    <div class="timer" data-timer role="timer" aria-live="polite">
+      <svg viewBox="0 0 44 44" aria-hidden="true">
+        <circle cx="22" cy="22" r="19"></circle>
+        <circle class="timer-ring" cx="22" cy="22" r="19" data-timer-ring></circle>
+      </svg>
+      <b data-timer-value>—</b>
+    </div>
+  </div>
+
+  <article class="question-card" data-question-card aria-live="polite">
+    <div class="loading-state"><span class="spinner" aria-hidden="true"></span>Загружаем общий вопрос…</div>
+  </article>
+
+  <div class="quiz-message" data-quiz-message hidden></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/quiz.js') }}" defer></script>{% endblock %}
+

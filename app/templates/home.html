@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ config.title }}{% endblock %}
+{% block body_class %}home-page{% endblock %}
+{% block content %}
+<section class="hero paper-lines">
+  <div class="hero-copy">
+    <span class="eyebrow">Первый день рождения</span>
+    <h1><span>Ваня,</span><br>вот это год!</h1>
+    <p class="hero-lede">{{ config.welcome }}</p>
+    {% if config.demo_content %}
+      <div class="demo-note" role="note">Сейчас включены демонстрационные вопросы</div>
+    {% endif %}
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <img src="{{ url_for('static', filename='img/animal-parade.svg') }}" alt="">
+  </div>
+</section>
+
+<section class="join-section" aria-labelledby="join-heading">
+  <div class="join-card sticker-card">
+    {% if round.status == 'finished' %}
+      <span class="card-icon" aria-hidden="true">🏆</span>
+      <h2 id="join-heading">Квиз завершён</h2>
+      <p>Спасибо за игру! Итоги уже готовы.</p>
+      <a class="button button-coral" href="{{ url_for('public.ranking_page') }}">Смотреть рейтинг</a>
+    {% elif not round.is_open %}
+      <span class="card-icon" aria-hidden="true">👋</span>
+      <h2 id="join-heading">Скоро начинаем</h2>
+      <p>Ведущий пока готовит игру. Оставьте страницу открытой и обновите её по команде.</p>
+      <a class="button button-blue" href="{{ url_for('public.ranking_page') }}">Открыть рейтинг</a>
+    {% else %}
+      <span class="card-icon" aria-hidden="true">✦</span>
+      <h2 id="join-heading">Как вас зовут?</h2>
+      <p>Имя увидят другие гости в общем рейтинге.</p>
+      <form method="post" action="{{ url_for('public.join') }}" class="join-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="name">Игровое имя</label>
+        <input id="name" name="name" maxlength="40" autocomplete="nickname" required
+               placeholder="Например, тётя Оля" value="{{ request.form.get('name', '') }}">
+        {% if join_error %}<p class="form-error" role="alert">{{ join_error }}</p>{% endif %}
+        <button class="button button-coral" type="submit">Присоединиться</button>
+      </form>
+    {% endif %}
+  </div>
+  <div class="how-it-works">
+    <h2>Играем все вместе</h2>
+    <ol>
+      <li><b>60 секунд</b><span>на каждый вопрос</span></li>
+      <li><b>От 1 до N</b><span>за близость в вопросах с вводом</span></li>
+      <li><b>2 балла</b><span>за верный вариант, иначе — 0</span></li>
+      <li><b>10 вопросов</b><span>про Ванин первый год</span></li>
+    </ol>
+  </div>
+</section>
+{% endblock %}
+

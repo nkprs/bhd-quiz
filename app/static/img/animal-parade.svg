@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 390" role="img" aria-labelledby="title desc">
+  <title id="title">Праздничный парад зверей</title><desc id="desc">Нарисованные от руки лев, медвежонок, слон и жираф</desc>
+  <g fill="none" stroke="#172b4d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#ffcf45" d="M38 247c-19-32 1-72 35-76-5-35 37-53 58-25 26-25 64-4 54 28 35 10 41 54 15 75-38 28-126 24-162-2z"/>
+    <circle fill="#f7a936" cx="111" cy="207" r="49"/><circle fill="#fff9ed" cx="111" cy="213" r="27"/>
+    <path d="M95 194c0 0 5 5 10 0m12 0c0 0 5 5 10 0m-24 20c7 6 13 6 20 0"/><path fill="#1769d2" d="M60 254h105v59H60z"/><circle fill="#fff" cx="84" cy="316" r="16"/><circle fill="#fff" cx="146" cy="316" r="16"/>
+    <path fill="#8c9187" d="M240 170c-24 7-36 29-33 58l8 76h93l5-88c2-32-28-54-73-46z"/><circle fill="#8c9187" cx="229" cy="169" r="22"/><circle fill="#8c9187" cx="294" cy="169" r="22"/><path fill="#fff9ed" d="M240 196c12-12 37-12 49 0v42c-10 17-40 17-49 0z"/><circle fill="#172b4d" cx="251" cy="203" r="3"/><circle fill="#172b4d" cx="279" cy="203" r="3"/><path d="M258 220h14m-7 0v7"/>
+    <path fill="#b7e2d2" d="M354 191c7-39 70-47 105-18 23 20 27 53 14 88l-7 46h-93l-10-65c-28-7-37-29-29-50 5 24 18 25 20-1z"/><path fill="#b7e2d2" d="M429 171c21-53 68-65 86-29 13 27-8 51-43 49"/><path d="M487 149c0 0 6 5 11 0M400 211c0 0 6 5 11 0"/><path d="M377 260v59m77-56v56"/>
+    <path fill="#f5c932" d="M529 151c6-45 63-55 78-17l-2 57c27 11 40 42 34 74l-8 51h-83l-6-75c-2-24 10-43 28-51v-39z"/><path fill="#f5c932" d="m549 126-15-29 32 13m24 1 24-25-3 36"/><circle fill="#172b4d" cx="582" cy="139" r="4"/><path d="M567 218c8 0 8 10 16 10s8-10 16-10m-46 48h11m35 16h12m-55 34v25m67-25v25"/>
+    <path stroke="#ef5b42" d="M82 112c-16-19 14-36 25-12 11-24 41-7 25 12l-25 25z" fill="#ef5b42"/><path stroke="#1769d2" d="M301 88c4-21 35-19 36 3 15-15 39 4 26 20h-70c-8-8-3-19 8-23z" fill="#85cdeb"/><path stroke="#ef5b42" d="m472 74 8 17 19 2-14 12 4 19-17-10-17 10 4-19-14-12 19-2z" fill="#ef5b42"/>
+  </g>
+</svg>
+

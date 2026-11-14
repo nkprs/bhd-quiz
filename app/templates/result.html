@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Ваш результат — {{ config.title }}{% endblock %}
+{% block body_class %}result-page{% endblock %}
+{% block content %}
+<section class="finale paper-lines">
+  <div class="confetti" aria-hidden="true">✦ ★ ♥ ✦ ★</div>
+  <span class="eyebrow">Квиз завершён</span>
+  {% if own_place == 1 %}<div class="winner-ribbon">Победитель! 🏆</div>{% endif %}
+  <h1>{% if own_place == 1 %}Вы знаете Ваню лучше всех!{% else %}{{ config.final_title }}{% endif %}</h1>
+  <div class="score-bubble"><b>{{ participant.score }}</b><span>из {{ max_score }}</span></div>
+  <p>{{ config.final_text }}</p>
+</section>
+<section class="ranking-wrap result-ranking" data-ranking-root>
+  <h2>Как сыграла семья</h2>
+  {% include "_ranking_table.html" %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/ranking.js') }}" defer></script>{% endblock %}
+

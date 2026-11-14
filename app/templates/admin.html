@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Пульт ведущего — {{ config.title }}{% endblock %}
+{% block body_class %}admin-page{% endblock %}
+{% block header_action %}
+<form method="post" action="{{ url_for('admin.logout') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button class="header-link button-link" type="submit">Выйти</button>
+</form>
+{% endblock %}
+{% block content %}
+<section class="admin-layout" data-admin-root>
+  <div class="admin-main">
+    <div class="admin-heading">
+      <div><span class="eyebrow">Управление игрой</span><h1>Пульт ведущего</h1></div>
+      <span class="status-pill" data-round-status>Загрузка…</span>
+    </div>
+    <div class="demo-note" data-demo-note hidden>В текущем раунде демонстрационные вопросы</div>
+
+    <section class="control-card">
+      <div class="live-question">
+        <span data-question-number>Вопрос —</span>
+        <h2 data-question-text>Загружаем…</h2>
+      </div>
+      <div class="admin-timer"><b data-admin-timer>—</b><span>секунд</span></div>
+      <div class="control-grid">
+        <button class="button button-green" data-action="open">Открыть вход</button>
+        <button class="button button-neutral" data-action="close">Закрыть квиз</button>
+        <button class="button button-blue" data-action="start">Начать с 1-го вопроса</button>
+        <button class="button button-yellow" data-action="toggle-timer">Выключить таймер</button>
+        <button class="button button-coral control-wide" data-action="next">Следующий вопрос →</button>
+      </div>
+      <p class="control-help">При выключенном таймере вопрос останется на экранах гостей, пока вы не нажмёте «Следующий вопрос».</p>
+      <div class="admin-error" data-admin-error hidden role="alert"></div>
+    </section>
+
+    <section class="participants-card">
+      <div class="section-heading"><h2>Участники <span data-participant-count>0</span></h2><a href="{{ url_for('admin.results_csv') }}">Скачать CSV</a></div>
+      <div class="admin-table-wrap">
+        <table>
+          <thead><tr><th>Имя</th><th>Прогресс</th><th>Баллы</th><th>Статус</th></tr></thead>
+          <tbody data-participants><tr><td colspan="4">Пока никого нет</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <aside class="admin-side">
+    <section class="invite-card">
+      <h2>Ссылка для гостей</h2>
+      <img src="{{ qr_data }}" alt="QR-код для входа в квиз" width="220" height="220">
+      <a href="{{ guest_url }}" target="_blank" rel="noopener">{{ guest_url }}</a>
+      <button class="button button-neutral" type="button" data-copy-link="{{ guest_url }}">Скопировать ссылку</button>
+    </section>
+    <section class="danger-card">
+      <h2>Новый раунд</h2>
+      <p>Текущий раунд уйдёт в архив. Новые вопросы из JSON применятся только после этого действия.</p>
+      <label for="reset-confirmation">Введите ОЧИСТИТЬ</label>
+      <input id="reset-confirmation" data-reset-confirmation autocomplete="off">
+      <button class="button button-danger" data-action="reset">Очистить и создать раунд</button>
+    </section>
+  </aside>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/admin.js') }}" defer></script>{% endblock %}
+

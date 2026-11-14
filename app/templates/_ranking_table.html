@@ -1,0 +1,18 @@
+<div class="ranking-list" data-ranking-list>
+  {% if ranking %}
+    {% for row in ranking %}
+    <div class="rank-row rank-{{ row.place if row.place <= 3 else 'other' }}{% if row.place == 1 %} is-winner{% endif %}{% if row.is_own %} is-own{% endif %}">
+      <span class="rank-place">{% if row.place == 1 %}🏆{% elif row.place == 2 %}🥈{% elif row.place == 3 %}🥉{% else %}{{ row.place }}{% endif %}</span>
+      <span class="rank-name">{{ row.name }}{% if row.is_own %}<small>это вы</small>{% endif %}</span>
+      <b class="rank-score">{{ row.score }} <small>из {{ row.max_score }}</small></b>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="empty-state">
+      <span aria-hidden="true">✦</span>
+      <h2>Рейтинг пока пуст</h2>
+      <p>Здесь появятся участники после завершения раунда.</p>
+    </div>
+  {% endif %}
+</div>
+
