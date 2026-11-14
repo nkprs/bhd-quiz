@@ -178,7 +178,48 @@ def result_page():
     return render_template(
         "result.html", config=config, participant=participant, ranking=board,
         own_place=own_place, max_score=max_score,
+        wish_error=session.pop("wish_error", None),
     )
+
+
+@bp.post("/wish")
+@require_csrf
+def submit_wish():
+    raw_wish = str(request.form.get("wish", "")).replace("\r\n", "\n").replace("\r", "\n")
+    wish = "\n".join(line.rstrip() for line in raw_wish.strip().splitlines())
+    if not wish:
+        session["wish_error"] = "Даже Ваня пока пишет короче, но одно пожелание всё-таки нужно 🙂"
+        return redirect(url_for("public.result_page", _anchor="wish"))
+    if len(wish) > 500:
+        session["wish_error"] = "Получилась почти семейная сага. Уложимся в 500 символов 📚"
+        return redirect(url_for("public.result_page", _anchor="wish"))
+
+    connection = get_db()
+    connection.execute("BEGIN IMMEDIATE")
+    try:
+        round_row = get_current_round(connection)
+        participant = find_participant(connection, session.get("participant_id"), round_row["id"])
+        if participant is None:
+            connection.rollback()
+            return redirect(url_for("public.home"))
+        if round_row["status"] != "finished":
+            connection.rollback()
+            session["wish_error"] = "Пожелания откроются после последнего вопроса — всему своё время 🎈"
+            return redirect(url_for("public.home"))
+        if participant["wish_text"]:
+            connection.commit()
+            if participant["wish_text"] != wish:
+                session["wish_error"] = "Пожелание уже запечатано в семейный архив ✉️"
+            return redirect(url_for("public.result_page", _anchor="wish"))
+        connection.execute(
+            "UPDATE participants SET wish_text=?, wish_submitted_at=? WHERE id=?",
+            (wish, utc_now_iso(), participant["id"]),
+        )
+        connection.commit()
+        return redirect(url_for("public.result_page", _anchor="wish"))
+    except Exception:
+        connection.rollback()
+        raise
 
 
 @bp.get("/ranking")

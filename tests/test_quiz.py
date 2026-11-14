@@ -286,3 +286,56 @@ def test_reinitialization_preserves_data(app):
     finally:
         connection.close()
 
+
+def test_private_wish_is_saved_once_and_visible_to_admin(app):
+    host, player = app.test_client(), app.test_client()
+    start_quiz(host)
+    join(player, "Крёстная")
+    for _ in range(10):
+        assert answer_current(player, "a").status_code == 200
+        assert admin_action(host, "next").status_code == 200
+    with player.session_transaction() as session:
+        token = session["csrf_token"]
+    wish = "Ваня, расти любознательным!\nИ всегда звони крёстной."
+    response = player.post(
+        "/wish", data={"csrf_token": token, "wish": wish}, follow_redirects=True
+    )
+    assert response.status_code == 200
+    assert "Пожелание принято" in response.get_data(as_text=True)
+    assert wish.splitlines()[0] in response.get_data(as_text=True)
+
+    admin_state = host.get("/admin/api/state").get_json()
+    assert admin_state["participants"][0]["wish_text"] == wish
+    assert wish not in player.get("/api/ranking").get_data(as_text=True)
+
+    duplicate = player.post("/wish", data={"csrf_token": token, "wish": wish})
+    assert duplicate.status_code == 302
+    connection = connect_database(app.config["DATABASE"])
+    try:
+        stored = connection.execute(
+            "SELECT wish_text, wish_submitted_at FROM participants"
+        ).fetchone()
+        assert stored["wish_text"] == wish
+        assert stored["wish_submitted_at"]
+    finally:
+        connection.close()
+
+
+def test_wish_length_is_validated_on_server(app):
+    host, player = app.test_client(), app.test_client()
+    start_quiz(host)
+    join(player)
+    for _ in range(10):
+        assert admin_action(host, "next").status_code == 200
+    with player.session_transaction() as session:
+        token = session["csrf_token"]
+    response = player.post(
+        "/wish", data={"csrf_token": token, "wish": "я" * 501}, follow_redirects=True
+    )
+    assert "500 символов" in response.get_data(as_text=True)
+    connection = connect_database(app.config["DATABASE"])
+    try:
+        assert connection.execute("SELECT wish_text FROM participants").fetchone()["wish_text"] is None
+    finally:
+        connection.close()
+

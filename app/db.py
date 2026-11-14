@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS participants (
     display_name TEXT NOT NULL CHECK (length(display_name) BETWEEN 1 AND 40),
     started_at TEXT NOT NULL,
     completed_at TEXT,
+    wish_text TEXT,
+    wish_submitted_at TEXT,
     score INTEGER NOT NULL DEFAULT 0 CHECK (score >= 0),
     UNIQUE(round_id, public_id)
 );
@@ -78,14 +80,24 @@ def close_db(_error=None):
 
 def init_schema(connection):
     connection.executescript(SCHEMA)
-    columns = {row["name"] for row in connection.execute("PRAGMA table_info(answers)")}
-    migrations = {
+    answer_columns = {row["name"] for row in connection.execute("PRAGMA table_info(answers)")}
+    answer_migrations = {
         "answer_text": "ALTER TABLE answers ADD COLUMN answer_text TEXT",
         "numeric_value": "ALTER TABLE answers ADD COLUMN numeric_value REAL",
         "points": "ALTER TABLE answers ADD COLUMN points INTEGER NOT NULL DEFAULT 0 CHECK (points >= 0)",
     }
-    for name, statement in migrations.items():
-        if name not in columns:
+    for name, statement in answer_migrations.items():
+        if name not in answer_columns:
+            connection.execute(statement)
+    participant_columns = {
+        row["name"] for row in connection.execute("PRAGMA table_info(participants)")
+    }
+    participant_migrations = {
+        "wish_text": "ALTER TABLE participants ADD COLUMN wish_text TEXT",
+        "wish_submitted_at": "ALTER TABLE participants ADD COLUMN wish_submitted_at TEXT",
+    }
+    for name, statement in participant_migrations.items():
+        if name not in participant_columns:
             connection.execute(statement)
 
 

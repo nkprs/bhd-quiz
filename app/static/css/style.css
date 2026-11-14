@@ -24,7 +24,7 @@ body {
   line-height: 1.5;
   min-width: 320px;
 }
-button, input { font: inherit; }
+button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
@@ -158,6 +158,7 @@ input { width: 100%; min-height: 54px; background: white; border: 2px solid var(
 .ranking-list { display: grid; gap: 12px; }
 .rank-row { min-height: 72px; display: grid; grid-template-columns: 58px 1fr auto; gap: 14px; align-items: center; background: var(--white); border: 2px solid var(--ink); border-radius: 15px 22px 14px 20px; padding: 10px 18px; box-shadow: 4px 4px 0 rgba(23, 43, 77, .8); }
 .rank-row.is-own { background: var(--yellow); transform: rotate(-.4deg); }
+.rank-row.is-own .rank-name small, .rank-row.is-own .rank-score { color: #0a3f80; }
 .rank-row.is-winner { border-width: 3px; box-shadow: 7px 7px 0 var(--yellow); }
 .rank-place { font-size: 1.5rem; font-weight: 900; text-align: center; }
 .rank-name { font-weight: 900; overflow-wrap: anywhere; }
@@ -176,6 +177,18 @@ input { width: 100%; min-height: 54px; background: white; border: 2px solid var(
 .score-bubble span { font-weight: 900; }
 .result-ranking { background: var(--blue); }
 .result-ranking > h2 { color: white; text-align: center; font: 400 2.5rem/1 Georgia, serif; }
+.wish-section { padding: 70px 16px; background: var(--pink); }
+.wish-card { width: min(760px, 100%); margin: 0 auto; padding: clamp(26px, 6vw, 52px); background: var(--white); border: 3px solid var(--ink); border-radius: 34px 42px 31px 45px; box-shadow: 10px 11px 0 var(--yellow); position: relative; }
+.wish-card h2 { font: 400 clamp(2.2rem, 5vw, 3.5rem)/1 Georgia, serif; }
+.wish-seal { position: absolute; right: clamp(20px, 5vw, 45px); top: -31px; width: 66px; height: 66px; display: grid; place-items: center; background: var(--yellow); border: 3px solid var(--ink); border-radius: 50%; font-size: 2rem; transform: rotate(7deg); }
+.privacy-note { margin: 24px 0; padding: 15px 18px; background: var(--mint); border-left: 6px solid var(--green); border-radius: 8px 15px 15px 8px; font-weight: 800; }
+.wish-form { display: grid; gap: 11px; }
+.wish-form label { font-weight: 900; }
+.wish-form textarea { width: 100%; resize: vertical; min-height: 140px; padding: 14px 16px; color: var(--ink); background: white; border: 2px solid var(--ink); border-radius: 14px; line-height: 1.45; }
+.wish-form-meta { display: flex; justify-content: space-between; gap: 15px; color: #626b78; font-size: .78rem; }
+.wish-form .button { margin-top: 8px; }
+.wish-thanks { font-size: 1.05rem; }
+.wish-card blockquote { margin: 28px 0 0; padding: 20px 24px; background: #fff3bd; border: 0; border-left: 6px solid var(--yellow); border-radius: 8px 18px 18px 8px; font-family: Georgia, serif; font-size: 1.2rem; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 .admin-login-page main { min-height: calc(100vh - 186px); display: grid; place-items: center; padding: 35px 16px; background: var(--cream); }
 .admin-login-card { width: min(450px, 100%); background: white; padding: 42px; border: 3px solid var(--ink); border-radius: 30px; box-shadow: 9px 10px 0 var(--yellow); }
@@ -207,6 +220,13 @@ input { width: 100%; min-height: 54px; background: white; border: 2px solid var(
 table { border-collapse: collapse; width: 100%; min-width: 600px; }
 th, td { text-align: left; padding: 13px 10px; border-bottom: 1px solid rgba(23,43,77,.15); }
 th { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: #687180; }
+.wishes-card { margin-top: 28px; }
+.section-note { color: #626b78; font-size: .88rem; }
+.wishes-list { display: grid; gap: 14px; }
+.wish-item { padding: 18px; background: #fff8d9; border: 2px solid var(--ink); border-radius: 14px 19px 13px 18px; }
+.wish-item > div { display: flex; justify-content: space-between; gap: 15px; color: var(--blue); }
+.wish-item p { margin: 9px 0 0; white-space: normal; overflow-wrap: anywhere; }
+.empty-wishes { padding: 25px; color: #626b78; background: var(--cream); border-radius: 14px; text-align: center; }
 .admin-side { display: grid; align-content: start; gap: 25px; }
 .invite-card { text-align: center; }
 .invite-card img { margin: 12px auto; width: 220px; border: 8px solid white; }
@@ -254,6 +274,7 @@ th { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color:
   .control-wide { grid-column: auto; }
   .admin-side { grid-template-columns: 1fr; }
   .admin-login-card { padding: 30px 22px; }
+  .wish-form-meta { display: grid; gap: 3px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

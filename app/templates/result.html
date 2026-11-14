@@ -10,10 +10,43 @@
   <div class="score-bubble"><b>{{ participant.score }}</b><span>из {{ max_score }}</span></div>
   <p>{{ config.final_text }}</p>
 </section>
+<section class="wish-section" id="wish" aria-labelledby="wish-title">
+  <div class="wish-card">
+    <span class="wish-seal" aria-hidden="true">💌</span>
+    {% if participant.wish_text %}
+      <span class="eyebrow">Сохранено в семейный архив</span>
+      <h2 id="wish-title">Пожелание принято!</h2>
+      <p class="wish-thanks">Оно будет бережно храниться до тех пор, пока Ваня не достигнет возраста уверенного чтения. То есть заметно раньше, чем возраста заполнения налоговой декларации.</p>
+      <blockquote>{{ participant.wish_text }}</blockquote>
+    {% else %}
+      <span class="eyebrow">Послание в будущее</span>
+      <h2 id="wish-title">Пожелайте что-нибудь Ване</h2>
+      <p>Можно оставить тёплое, мудрое или слегка компрометирующее семейное пожелание.</p>
+      <div class="privacy-note" role="note">
+        Строго конфиденциально: пожелание увидит только ведущий, а получателю его передадут при достижении возраста чтения.
+      </div>
+      <form method="post" action="{{ url_for('public.submit_wish') }}" class="wish-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="wish-text">Ваше пожелание</label>
+        <textarea id="wish-text" name="wish" rows="5" maxlength="500" required
+                  data-wish-text placeholder="Ваня, желаю тебе…"></textarea>
+        <div class="wish-form-meta">
+          <span data-wish-counter>0 из 500</span>
+          <span>После отправки изменить текст нельзя</span>
+        </div>
+        {% if wish_error %}<p class="form-error" role="alert">{{ wish_error }}</p>{% endif %}
+        <button class="button button-coral" type="submit">Запечатать пожелание</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
 <section class="ranking-wrap result-ranking" data-ranking-root>
   <h2>Как сыграла семья</h2>
   {% include "_ranking_table.html" %}
 </section>
 {% endblock %}
-{% block scripts %}<script src="{{ url_for('static', filename='js/ranking.js') }}" defer></script>{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ranking.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/wish.js') }}" defer></script>
+{% endblock %}
 

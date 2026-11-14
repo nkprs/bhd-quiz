@@ -25,6 +25,12 @@
     body.innerHTML = data.participants.length ? data.participants.map((person) => `<tr>
       <td>${escapeHtml(person.display_name)}</td><td>${person.answered_count}/${round.question_total}</td>
       <td><b>${person.score}</b></td><td>${person.completed_at ? 'Готово' : (person.missed_count ? `Пропущено: ${person.missed_count}` : 'Играет')}</td></tr>`).join('') : '<tr><td colspan="4">Пока никого нет</td></tr>';
+    const wishes = data.participants.filter((person) => person.wish_text);
+    root.querySelector('[data-wish-count]').textContent = wishes.length;
+    root.querySelector('[data-wishes]').innerHTML = wishes.length ? wishes.map((person) => `<article class="wish-item">
+      <div><b>${escapeHtml(person.display_name)}</b><span>💌</span></div>
+      <p>${escapeHtml(person.wish_text).replace(/\n/g, '<br>')}</p>
+    </article>`).join('') : '<div class="empty-wishes">Пока пожеланий нет — гости ещё подбирают слова.</div>';
     const timerButton = root.querySelector('[data-action="toggle-timer"]');
     timerButton.textContent = round.timer_enabled ? 'Выключить таймер' : 'Запустить 60 секунд';
     root.querySelector('[data-action="start"]').disabled = round.status !== 'waiting';

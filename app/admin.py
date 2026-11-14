@@ -67,6 +67,7 @@ def logout():
 def _participant_rows(connection, round_id):
     return connection.execute(
         """SELECT p.id, p.display_name, p.score, p.started_at, p.completed_at,
+                  p.wish_text, p.wish_submitted_at,
                   COUNT(a.id) AS answered_count,
                   SUM(CASE WHEN a.id IS NOT NULL AND a.option_id IS NULL
                                 AND a.numeric_value IS NULL THEN 1 ELSE 0 END) AS missed_count
@@ -187,12 +188,15 @@ def results_csv():
     rows = _participant_rows(connection, round_row["id"])
     stream = io.StringIO()
     writer = csv.writer(stream, delimiter=";", lineterminator="\r\n")
-    writer.writerow(["Имя", "Баллы", "Ответов", "Пропущено", "Начало", "Завершение"])
+    writer.writerow(
+        ["Имя", "Баллы", "Ответов", "Пропущено", "Начало", "Завершение", "Пожелание Ване"]
+    )
     for row in rows:
         writer.writerow(
             [
                 _excel_safe(row["display_name"]), row["score"], row["answered_count"],
                 row["missed_count"] or 0, row["started_at"], row["completed_at"] or "",
+                _excel_safe(row["wish_text"] or ""),
             ]
         )
     content = "\ufeff" + stream.getvalue()
